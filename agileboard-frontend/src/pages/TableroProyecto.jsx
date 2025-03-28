@@ -1,27 +1,44 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { obtenerTareas } from "../services/proyectosService"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 function TableroProyecto() {
   const { id } = useParams()
-  const [tareasTodo, setTareasTodo] = useState([])
-  const [tareasInProgress, setTareasInProgress] = useState([])
-  const [tareasDone, setTareasDone] = useState([])
+  const [tareas, setTareas] = useState([])
 
   useEffect(() => {
-    obtenerTareas().then(data => {
-      const delProyecto = data.filter(t => t.proyectoId === id)
-      setTareasTodo(delProyecto.filter(t => t.estado === "todo"))
-      setTareasInProgress(delProyecto.filter(t => t.estado === "inprogress"))
-      setTareasDone(delProyecto.filter(t => t.estado === "done"))
-    })
+    fetch("http://localhost:4000/tareas")
+      .then(res => res.json())
+      .then(data => {
+        const tareasProyecto = data.filter(t => t.proyectoId === id)
+        setTareas(tareasProyecto)
+      })
   }, [id])
 
-  const handleCrearTarea = (estado) => {
-    const titulo = prompt("Título de la tarea:")
-    if (!titulo) return
+  const estados = ["todo", "in-progress", "done"]
 
-    const descripcion = prompt("Descripción de la tarea:")
+  const handleDragEnd = (result) => {
+    if (!result.destination) return
+
+    const nuevaTareas = Array.from(tareas)
+    const [movedTask] = nuevaTareas.splice(result.source.index, 1)
+    movedTask.estado = result.destination.droppableId
+    nuevaTareas.splice(result.destination.index, 0, movedTask)
+
+    setTareas(nuevaTareas)
+
+    fetch(`http://localhost:4000/tareas/${movedTask.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(movedTask),
+    })
+  }
+
+  const agregarTarea = (estado) => {
+    const titulo = prompt("Título de la tarea:")
+    const descripcion = prompt("Descripción:")
+
+    if (!titulo) return
 
     const nuevaTarea = {
       id: crypto.randomUUID(),
@@ -37,83 +54,64 @@ function TableroProyecto() {
       body: JSON.stringify(nuevaTarea),
     })
       .then(res => res.json())
-      .then(() => {
-        if (estado === "todo") {
-          setTareasTodo(prev => [...prev, nuevaTarea])
-        } else if (estado === "inprogress") {
-          setTareasInProgress(prev => [...prev, nuevaTarea])
-        } else if (estado === "done") {
-          setTareasDone(prev => [...prev, nuevaTarea])
-        }
-      })
-      .catch(err => {
-        console.error("Error al crear tarea:", err)
-        alert("No se pudo crear la tarea.")
-      })
+      .then(t => setTareas(prev => [...prev, t]))
   }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-4">Tablero del Proyecto</h1>
+      <h1 className="text-3xl font-bold mb-6">Tablero del Proyecto</h1>
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Columna To Do */}
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-bold mb-2">To Do</h2>
-          <div className="space-y-2">
-            {tareasTodo.map(tarea => (
-              <div key={tarea.id} className="p-3 bg-gray-100 rounded shadow">
-                <h3 className="font-semibold">{tarea.titulo}</h3>
-                <p className="text-sm text-gray-700">{tarea.descripcion}</p>
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={() => handleCrearTarea("todo")}
-            className="mt-4 text-blue-500 hover:underline"
-          >
-            + Añadir tarea
-          </button>
-        </div>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {estados.map((estado) => (
+            <Droppable droppableId={estado} key={estado}>
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="bg-white rounded shadow p-4 min-h-[300px]"
+                >
+                  <h2 className="text-xl font-semibold capitalize mb-4">
+                    {estado.replace("-", " ")}
+                  </h2>
 
-        {/* Columna In Progress */}
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-bold mb-2">In Progress</h2>
-          <div className="space-y-2">
-            {tareasInProgress.map(tarea => (
-              <div key={tarea.id} className="p-3 bg-yellow-100 rounded shadow">
-                <h3 className="font-semibold">{tarea.titulo}</h3>
-                <p className="text-sm text-gray-700">{tarea.descripcion}</p>
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={() => handleCrearTarea("inprogress")}
-            className="mt-4 text-blue-500 hover:underline"
-          >
-            + Añadir tarea
-          </button>
-        </div>
+                  {tareas.length > 0 &&
+                    tareas
+                      .filter(t => t.estado === estado)
+                      .map((tarea, index) => (
+                        <Draggable
+                          key={`draggable-${tarea.id}`}
+                          draggableId={String(tarea.id)}
+                          index={index}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className="bg-gray-200 rounded p-3 mb-3 shadow"
+                            >
+                              <h3 className="font-bold">{tarea.titulo}</h3>
+                              <p className="text-sm text-gray-700">{tarea.descripcion}</p>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
 
-        {/* Columna Done */}
-        <div className="bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-bold mb-2">Done</h2>
-          <div className="space-y-2">
-            {tareasDone.map(tarea => (
-              <div key={tarea.id} className="p-3 bg-green-100 rounded shadow">
-                <h3 className="font-semibold">{tarea.titulo}</h3>
-                <p className="text-sm text-gray-700">{tarea.descripcion}</p>
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={() => handleCrearTarea("done")}
-            className="mt-4 text-blue-500 hover:underline"
-          >
-            + Añadir tarea
-          </button>
+                  {provided.placeholder}
+
+                  <button
+                    onClick={() => agregarTarea(estado)}
+                    className="mt-4 text-blue-500 text-sm hover:underline"
+                  >
+                    + Agregar tarea
+                  </button>
+                </div>
+              )}
+            </Droppable>
+          ))}
         </div>
-      </div>
+      </DragDropContext>
     </div>
   )
 }

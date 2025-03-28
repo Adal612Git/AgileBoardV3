@@ -17,7 +17,7 @@
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "Tarea 1",
       "descripcion": "Esto es una tarea de prueba",
-      "estado": "todo"
+      "estado": "done"
     },
     {
       "id": "2dd0c78f-7c12-4833-85a5-4c9d6854d799",
@@ -38,6 +38,34 @@
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "comer cabeza",
       "descripcion": "pinshe joto alv",
+      "estado": "in-progress"
+    },
+    {
+      "id": "da929267-9cce-4919-ac62-051d872f5aa3",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "jaKSasl",
+      "descripcion": "ASSSS",
+      "estado": "todo"
+    },
+    {
+      "id": "e7800a55-cafa-40b0-ac09-6dc3b22f5956",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "en progreso",
+      "descripcion": "en progreso",
+      "estado": "in-progress"
+    },
+    {
+      "id": "7187922e-c048-446d-aefa-a50345029737",
+      "proyectoId": "_88i9uKLNqZiBlzg8pkkT",
+      "titulo": "prueba 1",
+      "descripcion": "test",
+      "estado": "todo"
+    },
+    {
+      "id": "4190e918-e92d-47ec-99ef-8f4478a78921",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "otra prueba",
+      "descripcion": "otra prueba",
       "estado": "todo"
     }
   ]

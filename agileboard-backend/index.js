@@ -16,12 +16,12 @@ await db.read()
 // Inicializar estructura si no existe
 db.data ||= { proyectos: [], tareas: [] }
 
-// Ruta para obtener todos los proyectos
+// ===================== PROYECTOS =====================
+
 app.get('/proyectos', (req, res) => {
   res.json(db.data.proyectos)
 })
 
-// Ruta para crear un nuevo proyecto
 app.post('/proyectos', async (req, res) => {
   const { nombre, color } = req.body
 
@@ -41,7 +41,8 @@ app.post('/proyectos', async (req, res) => {
   res.status(201).json(nuevoProyecto)
 })
 
-// ENDPOINTS DE TAREAS
+// ===================== TAREAS =====================
+
 app.get("/tareas", async (req, res) => {
   await db.read()
   res.json(db.data.tareas)
@@ -57,6 +58,19 @@ app.post("/tareas", async (req, res) => {
   await db.write()
   res.status(201).json(nuevaTarea)
 })
+
+// ✅ NUEVO: Endpoint para actualizar una tarea (drag & drop)
+app.put("/tareas/:id", async (req, res) => {
+  await db.read()
+  const index = db.data.tareas.findIndex(t => t.id === req.params.id)
+  if (index === -1) return res.status(404).send("Tarea no encontrada")
+
+  db.data.tareas[index] = req.body
+  await db.write()
+  res.send(db.data.tareas[index])
+})
+
+// ===================== SERVER =====================
 
 const PORT = 4000
 app.listen(PORT, () => {
