@@ -9,6 +9,26 @@
       "id": "ui9Zgje7AvsyG4S16-dWG",
       "nombre": "test 2",
       "color": "#c4e64c"
+    },
+    {
+      "id": "_i4bYXjHXIBDt-4UqChc3",
+      "nombre": "proyecto de prueba",
+      "color": "#155b60"
+    },
+    {
+      "id": "8BRBfpk2dihuUhV4CEpEi",
+      "nombre": "Proyecto 3",
+      "color": "#4f46e5"
+    },
+    {
+      "id": "XP4hHxbHJyQ_ZVB3SAtoD",
+      "nombre": "Ejemplo3",
+      "color": "#4f46e5"
+    },
+    {
+      "id": "dbzcPLC2R6X1Ec1a0mDMK",
+      "nombre": "new shinra",
+      "color": "#07035e"
     }
   ],
   "tareas": [
@@ -24,7 +44,7 @@
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "comer ajonjoli",
       "descripcion": "come machin ajonjoli asi mancahdo",
-      "estado": "todo"
+      "estado": "done"
     },
     {
       "id": "a8cc1b06-d339-4f53-8b0a-963b1c210aef",
@@ -38,14 +58,14 @@
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "comer cabeza",
       "descripcion": "pinshe joto alv",
-      "estado": "in-progress"
+      "estado": "todo"
     },
     {
       "id": "da929267-9cce-4919-ac62-051d872f5aa3",
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "jaKSasl",
       "descripcion": "ASSSS",
-      "estado": "todo"
+      "estado": "done"
     },
     {
       "id": "e7800a55-cafa-40b0-ac09-6dc3b22f5956",
@@ -57,8 +77,8 @@
     {
       "id": "7187922e-c048-446d-aefa-a50345029737",
       "proyectoId": "_88i9uKLNqZiBlzg8pkkT",
-      "titulo": "prueba 1",
-      "descripcion": "test",
+      "titulo": "Pruebaone",
+      "descripcion": "new description papu",
       "estado": "todo"
     },
     {
@@ -66,6 +86,41 @@
       "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
       "titulo": "otra prueba",
       "descripcion": "otra prueba",
+      "estado": "todo"
+    },
+    {
+      "id": "2bc9e2f2-a6c7-41fc-8459-35e2e3bdf530",
+      "proyectoId": "_i4bYXjHXIBDt-4UqChc3",
+      "titulo": "tarea 1 ",
+      "descripcion": "es la tarea 1 :V",
+      "estado": "in-progress"
+    },
+    {
+      "id": "f784df67-8d3f-4c57-9b66-223099fa79c8",
+      "proyectoId": "_i4bYXjHXIBDt-4UqChc3",
+      "titulo": "tarea 32",
+      "descripcion": "son un chingo de tareas",
+      "estado": "todo"
+    },
+    {
+      "id": "e17379c2-3b5c-4f14-9c24-efab4b5ba127",
+      "proyectoId": "_88i9uKLNqZiBlzg8pkkT",
+      "titulo": "prueba 2",
+      "descripcion": "prueba 2",
+      "estado": "in-progress"
+    },
+    {
+      "id": "bccda701-ad7c-435d-b9e1-fabf5b29a85c",
+      "proyectoId": "dbzcPLC2R6X1Ec1a0mDMK",
+      "titulo": "1",
+      "descripcion": "12",
+      "estado": "todo"
+    },
+    {
+      "id": "b11a2078-0a7f-4a7d-9688-2ec215a31e31",
+      "proyectoId": "dbzcPLC2R6X1Ec1a0mDMK",
+      "titulo": "2",
+      "descripcion": "12",
       "estado": "todo"
     }
   ]

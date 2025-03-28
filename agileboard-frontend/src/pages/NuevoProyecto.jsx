@@ -1,10 +1,13 @@
 import { useState } from "react"
 import { crearProyecto } from "../services/proyectosService"
+import { useNavigate } from "react-router-dom"
 
 function NuevoProyecto() {
   const [nombre, setNombre] = useState("")
   const [color, setColor] = useState("#4f46e5")
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate() // ✅ Inicializamos el navegador
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,8 +24,8 @@ function NuevoProyecto() {
       console.log("🟢 Proyecto guardado:", nuevoProyecto)
       alert("✅ Proyecto creado correctamente")
 
-      setNombre("")
-      setColor("#4f46e5")
+      // ✅ Redirigimos a /proyectos
+      navigate("/proyectos")
     } catch (error) {
       console.error("Error al crear proyecto:", error)
       alert("❌ Hubo un error al guardar el proyecto")
