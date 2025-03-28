@@ -20,3 +20,22 @@ export async function obtenerProyectos() {
   const res = await fetch(API_URL)
   return await res.json()
 }
+// src/services/proyectosService.js
+
+export async function obtenerProyectoPorId(id) {
+    const res = await fetch("/db.json")
+  
+    if (!res.ok) {
+      throw new Error("Error al obtener proyectos")
+    }
+  
+    const data = await res.json()
+    const proyecto = data.proyectos.find((proyecto) => proyecto.id === id)
+  
+    if (!proyecto) {
+      throw new Error("Proyecto no encontrado")
+    }
+  
+    return proyecto
+  }
+  

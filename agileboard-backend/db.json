@@ -4,6 +4,41 @@
       "id": "_88i9uKLNqZiBlzg8pkkT",
       "nombre": "test 1",
       "color": "#4f46e5"
+    },
+    {
+      "id": "ui9Zgje7AvsyG4S16-dWG",
+      "nombre": "test 2",
+      "color": "#c4e64c"
+    }
+  ],
+  "tareas": [
+    {
+      "id": "ba950129-3c3e-4c85-8f0a-cb3230608635",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "Tarea 1",
+      "descripcion": "Esto es una tarea de prueba",
+      "estado": "todo"
+    },
+    {
+      "id": "2dd0c78f-7c12-4833-85a5-4c9d6854d799",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "comer ajonjoli",
+      "descripcion": "come machin ajonjoli asi mancahdo",
+      "estado": "todo"
+    },
+    {
+      "id": "a8cc1b06-d339-4f53-8b0a-963b1c210aef",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "domina el shinra tensei",
+      "descripcion": "y luego te pasas de lanza en konoha, deben pagar por lo que le hicieron a mi compa el itachi, es chido el we",
+      "estado": "todo"
+    },
+    {
+      "id": "abba2b07-03ed-43b6-8e9f-706e568f572b",
+      "proyectoId": "ui9Zgje7AvsyG4S16-dWG",
+      "titulo": "comer cabeza",
+      "descripcion": "pinshe joto alv",
+      "estado": "todo"
     }
   ]
 }
